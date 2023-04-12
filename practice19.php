@@ -9,13 +9,12 @@
 // Если возраст больше, или равен 18 и меньше, либо равно 65 лет, выведите "Вы взрослый"
 // Если возраст больше 65 лет, выведите "Вы пенсионер"
 
-
     $age = 65;
 
     if($age < 18) {
         echo 'Вы несовершеннолетний';
     }
-    elseif($age <= 65){
+    elseif($age >= 18 && $age <= 65){
         echo 'Вы взрослый';
     }
     else{
@@ -113,9 +112,9 @@
 
     $string = "level";
 
-    $result = match(true){
-        $string == strrev($string) => 'Является палиндромом',
-        $string == $string => 'Не является палиндромом',
+    $result = match(strrev($string)){
+        $string => 'Является палиндромом',
+        default => 'Не является палиндромом',
     };
 
     echo $result;
@@ -146,14 +145,15 @@
     $i = 1;
 
     while ($i <= $num) {
-        $i % 2 == 0;
-        $sum += $i;
+
+        if($i % 2 == 1){
+            $sum += $i;
+        }
+
         $i++;
     }
 
     echo $sum;
-
-
 
 
 // 2) Задача на поиск первого положительного числа, кратного 7:
@@ -161,11 +161,12 @@
     $i = 1;
 
     while (true) {
-        echo $i % 7 == 0;
-
+        if($i % 7 == 0 && $i > 0){
+            echo '7 Найдено';
+            break;
+        }
+        $i++;
     }
-
-    echo ''
 
 
 
@@ -192,7 +193,9 @@
     $evenNumbers = [];
 
     for ($i=0; $i < count($numbers); $i++) { 
-        $evenNumbers = $numbers[$i % 2 == 0];
+        if($numbers[$i] % 2 == 0){
+            array_push($evenNumbers, $numbers[$i]);
+        }
     }
 
     print_r($evenNumbers);
@@ -205,24 +208,27 @@
 
 // 1) Добавить новый элемент в ассоциативный массив и вывести все значения данного массива
 
-    $array = ['a', 'b', 'c',];
+    $array = ['a' => 1, 'b' => 2, 'c' => 3,];
 
-    foreach ($array as $verb){
-        echo $verb ;
+    $array['d'] = 4;
+
+    foreach ($array as $key => $value){
+        echo '<pre>';
+        print_r ("$key => $value");
+        echo '</pre>';
     }
 
 
 // 2) Объединение нескольких ассоциативных массивов в один и вывести результат (ключ, значение), через foreach
 
-    $array1 = ['a', 'b', 'c',];
-    $array2 = ['d', 'e', 'f',];
-    $array3 = ['g', 'h', 'x',];
+    $array1 = ['a' => 1, 'b' => 2, 'c' => 3,];
+    $array2 = ['d' => 4, 'e' => 5, 'f' => 6,];
+    $array3 = ['g' => 7, 'h' => 8, 'j' => 9,];
+    $array4 = $array1 + $array2 + $array3;
 
-    
-
-
-
-
-
-
+    foreach ($array4 as $key => $value) {
+        echo '<pre>';
+        print_r ("$key => $value");
+        echo '</pre>';
+    }
 ?>
